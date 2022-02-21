@@ -4,16 +4,24 @@ const $$ = document.querySelectorAll.bind(document);
 
 // Element
 const player = $('.player');
+const cd = $('.cd');
 const playlist = $('.playlist');
 const heading = $('header h2');
 const cdThumb = $('.cd-thumb');
 const audio = $('#audio');
 const playBtn = $('.btn-toggle-play');
+const prevBtn = $('.btn-prev');
+const nextBtn = $('.btn-next');
+const progress = $('.progress');
+const repeatBtn = $('.btn-repeat');
+const randomBtn = $('.btn-random');
 
 // App
 const app = {
     currentIndex: 0,
     isPlaying: false,
+    isRandom: false,
+    isRepeat: false,
     songs: [
         {
             name: "Mang tiền về cho mẹ",
@@ -94,9 +102,9 @@ const app = {
 
     // Render song
     render: function(){
-        const songHtmlELe = this.songs.map(song => {
+        const songHtmlELe = this.songs.map((song, index) => {
             return `
-                <div class="song ">
+                <div class="song ${index === this.currentIndex ? 'active' : ''}" data-index="${index}">
                     <div class="thumb" style="background-image: url('${song.image}')"></div>
                     <div class="body">
                         <h3 class="title">${song.name}</h3>
@@ -113,7 +121,25 @@ const app = {
 
     // Handle events
     handleEvents: function(){
+        const cdWidth = cd.offsetWidth;
         const _this = this;
+
+        // Xu ly phong to, thu nho cd play
+        document.onscroll = function(){
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const newCdWidth = cdWidth - scrollTop;
+            cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
+            cd.style.opacity = newCdWidth / cdWidth;
+        }
+
+        // Xu ly cd quay
+        const cdAnimate = cd.animate([
+            {transform: 'rotate(360deg)'}
+        ], {
+            duration: 10000,
+            iterations: Infinity
+        })
+        cdAnimate.pause();
         
         // play song
         playBtn.onclick = function(){
@@ -128,12 +154,89 @@ const app = {
         audio.onplay = function(){
             _this.isPlaying = true;
             player.classList.add('playing');
+            cdAnimate.play();
         }
         audio.onpause = function(){
             _this.isPlaying = false;
             player.classList.remove('playing');
+            cdAnimate.pause();
         }
 
+        // To next song
+        nextBtn.onclick = function(){
+            if(_this.isRandom){
+                _this.randomSong();
+            }else{
+                _this.toNextSong();
+            }
+            audio.play();
+            _this.render();
+            _this.scrollActiveSong();
+        }
+
+        // To previous song
+        prevBtn.onclick = function(){
+            if(_this.isRandom){
+                _this.randomSong();
+            }else{
+                _this.toPrevSong();
+            }
+            audio.play();
+            _this.render();
+            _this.scrollActiveSong();
+        }
+
+        // Thay doi tien do bai hat
+        audio.ontimeupdate = function(){
+            if(audio.duration){
+                progress.value = Math.floor(audio.currentTime / audio.duration * 100);
+            }
+        }
+
+        // Xu ly khi tua
+        progress.onchange = function(e){
+            const seekTime = audio.duration / 100 * e.target.value;
+            audio.currentTime = seekTime;
+        }
+
+        // Xu ly random song
+        randomBtn.onclick = function(){
+            _this.isRandom = !_this.isRandom;
+            randomBtn.classList.toggle('active', _this.isRandom);
+        }
+
+        // Xu ly repeat song
+        repeatBtn.onclick = function(){
+            _this.isRepeat = !_this.isRepeat;
+            repeatBtn.classList.toggle('active', _this.isRepeat);
+        }
+
+        // Xu ly khi bai hat ket thuc
+        audio.onended = function(){
+            if(_this.isRepeat){
+                audio.play()
+            }else{
+               nextBtn.click();
+            }
+        }
+
+        // Lang nghe khi click vao playlist
+        playlist.onclick = function(e){
+            const songNode = e.target.closest('.song:not(.active)');
+            if(songNode || e.target.closest('.option')){
+                // Xu ly khi click vao song
+                if(songNode){
+                    _this.currentIndex = Number (songNode.dataset.index); // songNode.dataset.index tra ve chuoi nen phai ep kieu sang Number
+                    // Hoac dung getAttribute: _this.currentIndex = songNode.getAttribute('data-index'); 
+                    _this.loadCurrentSong();
+                    audio.play();
+                    _this.render();
+                }
+
+                // Xu ly khi click vao option (dau ...) 
+            }
+        }
+        
     },
     
     // Load current song
@@ -141,6 +244,45 @@ const app = {
         heading.innerText = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
+    },
+    
+    // To next song
+    toNextSong: function(){
+        this.currentIndex ++;
+        if(this.currentIndex >= this.songs.length){
+            this.currentIndex = 0;
+        }
+        this.loadCurrentSong();
+    },
+
+    // To previous song
+    toPrevSong: function(){
+        this.currentIndex --;
+        if(this.currentIndex < 0){
+            this.currentIndex = this.songs.length - 1;
+        }
+        this.loadCurrentSong();
+    },
+
+    // Random song
+    randomSong: function(){
+        let randomIndex; 
+        do{
+            randomIndex = Math.floor(Math.random() * this.songs.length);
+        }while(randomIndex === this.currentIndex)
+        this.currentIndex = randomIndex;
+        this.loadCurrentSong(); 
+    },
+
+    // Scroll current song into view
+    scrollActiveSong: function(){
+        setTimeout(()=>{
+            $('.song.active').scrollIntoView({
+                behavior : 'smooth',
+                block: 'center',
+            });
+           
+        }, 500)
     },
 
     start: function(){

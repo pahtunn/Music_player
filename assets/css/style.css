@@ -49,16 +49,7 @@ html {
   top: 0;
   width: 100%;
   max-width: 480px;
-  border-radius: 0 0 12px 12px;
-}
-.dashboard header > div{
-  display: flex;
-}
-.dashboard header > div *{
-  flex: 50%;
-}
-.dashboard header img{
-  max-width: 160px;
+  border-bottom: 1px solid #ebebeb;
 }
 
 /* HEADER */
@@ -69,15 +60,12 @@ header {
 
 header h4 {
   color: var(--primary-color);
-  vertical-align: middle;
-  margin: auto;
-  font-size: 25px;
+  font-size: 12px;
 }
 
 header h2 {
   color: var(--text-color);
   font-size: 20px;
-  margin-top: 20px;
 }
 
 /* CD */
@@ -148,25 +136,22 @@ header h2 {
 
 /* PLAYLIST */
 .playlist {
-  margin-top: 567px;
-  /* padding: 12px; */
+  margin-top: 408px;
+  padding: 12px;
 }
 
 .song {
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-  background-color: var(--bg-color);
+  background-color: #fff;
   padding: 8px 16px;
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
-.song:hover{
-  background-color: #7897AB;
-}
 
 .song.active {
-  background-color: #7897AB;
+  background-color: var(--primary-color);
 }
 
 .song:active {
