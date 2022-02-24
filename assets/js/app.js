@@ -133,14 +133,14 @@ const app = {
         },
         {
             name: "Memories",
-            singer: "Pink Sweat$",
+            singer: "Maroon 5",
             path: "./assets/audio/memories.mp3",
             image: "./assets/img/cd-img/memories.jpg"
         },
         {
             name: "Roar",
-            singer: "Maroon 5",
-            path: "./assets/audio/roar.mp3",
+            singer: "Katy Perry",
+            path: "./assets/audio/Roar.mp3",
             image: "./assets/img/cd-img/roar.jpg"
         },
         {
