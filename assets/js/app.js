@@ -84,10 +84,82 @@ const app = {
             image: "./assets/img/cd-img/son_tung.jpg"
         },
         {
+            name: "Cứ chill thôi",
+            singer: "Chillies",
+            path: "./assets/audio/cu_chill_thoi.mp3",
+            image: "./assets/img/cd-img/cu_chill_thoi.jpg"
+        },
+        {
             name: "At my worst",
             singer: "Pink Sweat$",
             path: "./assets/audio/at_my_worst.mp3",
             image: "./assets/img/cd-img/pink_sweat.jpg"
+        },
+        {
+            name: "Girl like you",
+            singer: "Maroon 5",
+            path: "./assets/audio/girl_like_you.mp3",
+            image: "./assets/img/cd-img/girl_like_you.jpg"
+        },
+        {
+            name: "Let me down slowly",
+            singer: "Alec Benjamin",
+            path: "./assets/audio/let_me_down_slowly.mp3",
+            image: "./assets/img/cd-img/let_me_down_slowly.jpg"
+        },
+        {
+            name: "Let me love you",
+            singer: "Justin Bieber",
+            path: "./assets/audio/let_me_love_you.mp3",
+            image: "./assets/img/cd-img/let_me_love_you.jpg"
+        },
+        {
+            name: "Look what you made me do",
+            singer: "Taylor Swift",
+            path: "./assets/audio/look_what_you_made_me_do.mp3",
+            image: "./assets/img/cd-img/let_me_love_you.jpg"
+        },
+        {
+            name: "Love yourself",
+            singer: "Justin Bieber",
+            path: "./assets/audio/love_yourself.mp3",
+            image: "./assets/img/cd-img/love_yourself.jpg"
+        },
+        {
+            name: "Mascara",
+            singer: "Chillies",
+            path: "./assets/audio/mascara.mp3",
+            image: "./assets/img/cd-img/mascara.jpg"
+        },
+        {
+            name: "Memories",
+            singer: "Pink Sweat$",
+            path: "./assets/audio/memories.mp3",
+            image: "./assets/img/cd-img/memories.jpg"
+        },
+        {
+            name: "Roar",
+            singer: "Maroon 5",
+            path: "./assets/audio/roar.mp3",
+            image: "./assets/img/cd-img/roar.jpg"
+        },
+        {
+            name: "Shape of you",
+            singer: "Ed Sheeran",
+            path: "./assets/audio/shape_of_you.mp3",
+            image: "./assets/img/cd-img/shape_of_you.jpg"
+        },
+        {
+            name: "We don't talk anymore",
+            singer: "Charlie Puth",
+            path: "./assets/audio/we_dont_talk_anymore.mp3",
+            image: "./assets/img/cd-img/we_dont_talk_anymore.jpg"
+        },
+        {
+            name: "Senorita",
+            singer: "Camila Cabello",
+            path: "./assets/audio/senorita.mp3",
+            image: "./assets/img/cd-img/senorita.jpg"
         },
     ],
 
